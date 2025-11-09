@@ -1,0 +1,141 @@
+# Fuel-Station-Calculator
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>حاسبة المخزون</title>
+<style>
+body {
+    font-family: "Tajawal", sans-serif;
+    background: #f8f8f8;
+    padding: 25px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+}
+th {
+    background: #333;
+    color: #fff;
+}
+.col-91 { background: #d9f2d9; }
+.col-95 { background: #f7d4d4; }
+.col-d  { background: #faf1c7; }
+input {
+    width: 100%;
+    padding: 6px;
+    border: none;
+    text-align: center;
+    background: transparent;
+    font-size: 16px;
+}
+.result {
+    font-weight: bold;
+    background: #eee;
+}
+</style>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>البيانات</th>
+        <th class="col-91">91</th>
+        <th class="col-95">95</th>
+        <th class="col-d">D</th>
+    </tr>
+
+    <tr>
+        <td>كمية الاستهلاك اليومي × 7</td>
+        <td><input type="number" oninput="calc()" id="d1_91"></td>
+        <td><input type="number" oninput="calc()" id="d1_95"></td>
+        <td><input type="number" oninput="calc()" id="d1_d"></td>
+    </tr>
+
+    <tr>
+        <td>الكمية المتوفرة في الخزان 1</td>
+        <td><input type="number" oninput="calc()" id="t1_91"></td>
+        <td><input type="number" oninput="calc()" id="t1_95"></td>
+        <td><input type="number" oninput="calc()" id="t1_d"></td>
+    </tr>
+
+    <tr>
+        <td>الكمية المتوفرة في الخزان 2</td>
+        <td><input type="number" oninput="calc()" id="t2_91"></td>
+        <td><input type="number" oninput="calc()" id="t2_95"></td>
+        <td><input type="number" oninput="calc()" id="t2_d"></td>
+    </tr>
+
+    <tr>
+        <td>الكمية المتوفرة في الخزان 3</td>
+        <td><input type="number" oninput="calc()" id="t3_91"></td>
+        <td><input type="number" oninput="calc()" id="t3_95"></td>
+        <td><input type="number" oninput="calc()" id="t3_d"></td>
+    </tr>
+
+    <tr>
+        <td>سعة الخزان 1</td>
+        <td><input type="number" oninput="calc()" id="c1_91"></td>
+        <td><input type="number" oninput="calc()" id="c1_95"></td>
+        <td><input type="number" oninput="calc()" id="c1_d"></td>
+    </tr>
+
+    <tr>
+        <td>سعة الخزان 2</td>
+        <td><input type="number" oninput="calc()" id="c2_91"></td>
+        <td><input type="number" oninput="calc()" id="c2_95"></td>
+        <td><input type="number" oninput="calc()" id="c2_d"></td>
+    </tr>
+
+    <tr>
+        <td>سعة الخزان 3</td>
+        <td><input type="number" oninput="calc()" id="c3_91"></td>
+        <td><input type="number" oninput="calc()" id="c3_95"></td>
+        <td><input type="number" oninput="calc()" id="c3_d"></td>
+    </tr>
+
+    <tr>
+        <td>نسبة المخزون المتوفرة %</td>
+        <td class="result" id="r_91"></td>
+        <td class="result" id="r_95"></td>
+        <td class="result" id="r_d"></td>
+    </tr>
+</table>
+
+
+<script>
+function calc(){
+    const fuels = ["91","95","d"];
+    fuels.forEach(f => {
+        let t1 = +document.getElementById(`t1_${f}`).value || 0;
+        let t2 = +document.getElementById(`t2_${f}`).value || 0;
+        let t3 = +document.getElementById(`t3_${f}`).value || 0;
+        let c1 = +document.getElementById(`c1_${f}`).value || 0;
+        let c2 = +document.getElementById(`c2_${f}`).value || 0;
+        let c3 = +document.getElementById(`c3_${f}`).value || 0;
+
+        let totalAmount = t1 + t2 + t3;
+        let totalCap = c1 + c2 + c3;
+
+        let percent = totalCap ? ((totalAmount / totalCap) * 100).toFixed(1) + "%" : "";
+
+        document.getElementById(`r_${f}`).innerText = percent;
+    });
+
+    document.getElementById("d1_91").value && (document.getElementById("d1_91").value = document.getElementById("d1_91").value * 7);
+    document.getElementById("d1_95").value && (document.getElementById("d1_95").value = document.getElementById("d1_95").value * 7);
+    document.getElementById("d1_d").value && (document.getElementById("d1_d").value = document.getElementById("d1_d").value * 7);
+}
+</script>
+
+</body>
+</html>
